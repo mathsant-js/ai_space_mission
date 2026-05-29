@@ -10,12 +10,14 @@ def exibir_introducao_missao():
 def percorrer_ciclo_missao():
     risco_temperatura = 0
     risco_comunicacao = 0
+    risco_bateria = 0
     for i in range(len(dados_missao)):
         risco_temperatura += analisar_temperatura(dados_missao[i][0])
         risco_comunicacao += analisar_comunicacao(dados_missao[i][1])
+        risco_bateria += analisar_bateria(dados_missao[i][2])
         print(f"Temperatura: {dados_missao[i][0]} °C | {calcular_pontuacao_risco(risco_temperatura)}")
         print(f"Comunicação: {dados_missao[i][1]}% | {calcular_pontuacao_risco(risco_comunicacao)}")
-        print(f"Bateria: {dados_missao[i][2]}%")
+        print(f"Bateria: {dados_missao[i][2]}% | {calcular_pontuacao_risco(risco_bateria)}")
         print(f"Oxigênio: {dados_missao[i][3]}%")
         print(f"Estabilidade: {dados_missao[i][4]}%")
         print()
@@ -44,6 +46,15 @@ def analisar_comunicacao(comunicacao):
         case _ if comunicacao < 30:
             risco += 2
         case _ if comunicacao <= 59:
+            risco += 1
+    return risco
+
+def analisar_bateria(bateria):
+    risco = 0
+    match bateria:
+        case _ if bateria < 20:
+            risco += 2
+        case _ if bateria <= 49:
             risco += 1
     return risco
 
