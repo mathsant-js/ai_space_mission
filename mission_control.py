@@ -1,3 +1,12 @@
+def exibir_introducao_missao():
+    print("============================================================")
+    print("AI SPACE MISSION")
+    print("============================================================")
+    print("Missão: Moon Test Ômega")
+    print("Equipe: Equipe Alpha")
+    print(f"Quantidade de Ciclos Analisados: 6")
+    print()
+
 def percorrer_ciclo_missao():
     for i in range(len(dados_missao)):
         print(f"Temperatura: {dados_missao[i][0]} °C")
@@ -24,4 +33,5 @@ areas_monitoradas = [
     "Estabilidade operacional"
 ]
 
+exibir_introducao_missao()
 percorrer_ciclo_missao()
