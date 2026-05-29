@@ -32,6 +32,7 @@ def percorrer_ciclo_missao():
         print()
         print(f"Pontuação de risco do ciclo: {soma_risco}")
         print(f"Classificação do ciclo: {classificar_ciclo(soma_risco)}")
+        print(f"Recomendação: {gerar_recomendacao_ciclo(i)}")
         print()
 
 def atualizar_lista_risco(i):
@@ -54,6 +55,22 @@ def classificar_ciclo(soma_risco):
             return "MISSÃO EM ATENÇÃO"
         case _:
             return "MISSÃO CRÍTICA"
+    
+def gerar_recomendacao_ciclo(i):
+    recomendacao = ""
+    if somar_risco_temperatura(dados_missao[i][0]) > 0:
+        recomendacao += "Verificar controle térmico da missão. "
+    if somar_risco_comunicacao(dados_missao[i][1]) > 0:
+        recomendacao += "Tentar reestabelecer contato com a base. "
+    if somar_risco_bateria(dados_missao[i][2]) > 0:
+        recomendacao += "Ativar modo de economia de energia. "
+    if somar_risco_oxigenio(dados_missao[i][3]) > 0:
+        recomendacao += "Acionar protocolo de suporte à vida. "
+    if somar_risco_estabilidade(dados_missao[i][4]) > 0:
+        recomendacao += "Reduzir operações não essenciais. "
+    else:
+        recomendacao = "Manter operação normal e continuar monitoramento."
+    return recomendacao
 
 def analisar_temperatura(temperatura):
     match temperatura:
