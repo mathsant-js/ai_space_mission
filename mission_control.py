@@ -6,6 +6,7 @@ risco_estabilidade = 0
 
 lista_risco = [risco_temperatura, risco_comunicacao, risco_bateria, risco_oxigenio, risco_estabilidade]
 lista_soma_risco_ciclo = []
+lista_soma_pontuacao = [0, 0, 0, 0, 0]
 
 def exibir_introducao_missao():
     print("============================================================")
@@ -20,6 +21,7 @@ def exibir_introducao_missao():
 def percorrer_ciclo_missao():
     for i in range(len(dados_missao)):
         atualizar_lista_risco(i)
+        calcular_acumulo_pontuacao(i)
         soma_risco = somar_risco_ciclo()
         lista_soma_risco_ciclo.append(soma_risco)
         print(f"CICLO {i + 1}")
@@ -52,7 +54,7 @@ def exibir_relatorio_final():
     print("<tendencia_missao>")
     print()
     print("Pontuação acumuldada por área: ")
-    print("")
+    exibir_pontuacao_acumulada()
     print()
     print("Área mais afetada:")
     print("")
@@ -75,6 +77,17 @@ def exibir_media_informacoes():
     print(f"Média de bateria: {exibir_media_bateria():.2f} %")
     print(f"Média de oxigênio: {exibir_media_oxigenio():.2f} %")
     print(f"Média de estabilidade: {exibir_media_estabilidade():.2f} %")
+
+def calcular_acumulo_pontuacao(i):
+    lista_soma_pontuacao[0] += somar_risco_temperatura(dados_missao[i][0])
+    lista_soma_pontuacao[1] += somar_risco_comunicacao(dados_missao[i][1])
+    lista_soma_pontuacao[2] += somar_risco_bateria(dados_missao[i][2])
+    lista_soma_pontuacao[3] += somar_risco_oxigenio(dados_missao[i][3])
+    lista_soma_pontuacao[4] += somar_risco_estabilidade(dados_missao[i][4])
+    
+def exibir_pontuacao_acumulada():
+    for ls, area in zip(lista_soma_pontuacao, areas_monitoradas):
+        print(f"{area}: {ls} pontos")
 
 def calcular_media_informacao(coluna):
     soma = 0
