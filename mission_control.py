@@ -1,3 +1,12 @@
+def percorrer_ciclo_missao():
+    for i in range(len(dados_missao)):
+        print(f"Temperatura: {dados_missao[i][0]} °C")
+        print(f"Comunicação: {dados_missao[i][1]}%")
+        print(f"Bateria: {dados_missao[i][2]}%")
+        print(f"Oxigênio: {dados_missao[i][3]}%")
+        print(f"Estabilidade: {dados_missao[i][4]}%")
+        print()
+
 dados_missao = [
     [24, 92, 88, 96, 90],
     [27, 80, 72, 94, 85],
@@ -14,3 +23,5 @@ areas_monitoradas = [
     "Suporte de oxigênio",
     "Estabilidade operacional"
 ]
+
+percorrer_ciclo_missao()
