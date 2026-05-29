@@ -57,7 +57,7 @@ def exibir_relatorio_final():
     exibir_pontuacao_acumulada()
     print()
     print("Área mais afetada:")
-    print("")
+    exibir_area_mais_afetada()
     print()
     print("Classificação final da missão:")
     print("<classificao_final_missao>")
@@ -84,6 +84,18 @@ def calcular_acumulo_pontuacao(i):
     lista_soma_pontuacao[2] += somar_risco_bateria(dados_missao[i][2])
     lista_soma_pontuacao[3] += somar_risco_oxigenio(dados_missao[i][3])
     lista_soma_pontuacao[4] += somar_risco_estabilidade(dados_missao[i][4])
+
+def calcular_area_mais_afetada():
+    mais_afetada = lista_soma_pontuacao[0]
+    area_mais_afetada = areas_monitoradas[0]
+    for ls, area in zip(lista_soma_pontuacao, areas_monitoradas):
+        if ls > mais_afetada:
+            mais_afetada = ls
+            area_mais_afetada = area
+    return area_mais_afetada
+
+def exibir_area_mais_afetada():
+    print(calcular_area_mais_afetada())
     
 def exibir_pontuacao_acumulada():
     for ls, area in zip(lista_soma_pontuacao, areas_monitoradas):
