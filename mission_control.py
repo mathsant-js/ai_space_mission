@@ -8,13 +8,33 @@ def exibir_introducao_missao():
     print()
 
 def percorrer_ciclo_missao():
+    risco_temperatura = 0
     for i in range(len(dados_missao)):
-        print(f"Temperatura: {dados_missao[i][0]} °C")
+        risco_temperatura += analisar_temperatura(dados_missao[i][0])
+        print(f"Temperatura: {dados_missao[i][0]} °C | {calcular_pontuacao_risco(risco_temperatura)}")
         print(f"Comunicação: {dados_missao[i][1]}%")
         print(f"Bateria: {dados_missao[i][2]}%")
         print(f"Oxigênio: {dados_missao[i][3]}%")
         print(f"Estabilidade: {dados_missao[i][4]}%")
         print()
+
+def calcular_pontuacao_risco(pontuacao):
+    match pontuacao:
+        case _ if pontuacao < 3:
+            return "NORMAL"
+        case _ if pontuacao < 6:
+            return "ATENÇÃO"
+        case _:
+            return "CRÍTICO"
+
+def analisar_temperatura(temperatura):
+    risco = 0
+    match temperatura:
+        case _ if temperatura < 18 or temperatura > 30 and temperatura <= 35:
+            risco += 1
+        case _:
+            risco += 2
+    return risco
 
 dados_missao = [
     [24, 92, 88, 96, 90],
