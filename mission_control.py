@@ -34,6 +34,46 @@ def percorrer_ciclo_missao():
         print(f"Classificação do ciclo: {classificar_ciclo(soma_risco)}")
         print(f"Recomendação: {gerar_recomendacao_ciclo(i)}")
         print()
+    exibir_relatorio_final()
+
+def exibir_relatorio_final():
+    print("============================================================")
+    print("RELATÓRIO FINAL DA MISSÃO")
+    print("============================================================")
+    print("Missão: Moon Test Ômega")
+    print("Equipe: Equipe Alpha")
+    print()
+    print(f"Quantidade de Ciclos Analisados: {len(dados_missao)}")
+    print()
+    exibir_media_informacoes()
+    
+def exibir_media_informacoes():
+    print(f"Média de temperatura: {exibir_media_temperatura():.2f} °C")
+    print(f"Média de comunicação: {exibir_media_comunicacao():.2f} %")
+    print(f"Média de bateria: {exibir_media_bateria():.2f} %")
+    print(f"Média de oxigênio: {exibir_media_oxigenio():.2f} %")
+    print(f"Média de estabilidade: {exibir_media_estabilidade():.2f} %")
+
+def calcular_media_informacao(coluna):
+    soma = 0
+    for i in range(len(dados_missao)):
+        soma += dados_missao[i][coluna]
+    return soma / len(dados_missao)
+
+def exibir_media_temperatura():
+    return calcular_media_informacao(0)
+
+def exibir_media_comunicacao():
+    return calcular_media_informacao(1)
+
+def exibir_media_bateria():
+    return calcular_media_informacao(2)
+
+def exibir_media_oxigenio():
+    return calcular_media_informacao(3)
+
+def exibir_media_estabilidade():
+    return calcular_media_informacao(4)
 
 def atualizar_lista_risco(i):
     lista_risco[0] = somar_risco_temperatura(dados_missao[i][0])
