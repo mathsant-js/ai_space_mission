@@ -5,6 +5,7 @@ risco_oxigenio = 0
 risco_estabilidade = 0
 
 lista_risco = [risco_temperatura, risco_comunicacao, risco_bateria, risco_oxigenio, risco_estabilidade]
+lista_soma_risco_ciclo = []
 
 def exibir_introducao_missao():
     print("============================================================")
@@ -18,10 +19,9 @@ def exibir_introducao_missao():
 
 def percorrer_ciclo_missao():
     for i in range(len(dados_missao)):
-        global lista_risco
         atualizar_lista_risco(i)
-        soma_risco = 0
-        soma_risco += somar_risco_ciclo(soma_risco)
+        soma_risco = somar_risco_ciclo()
+        lista_soma_risco_ciclo.append(soma_risco)
         print(f"CICLO {i + 1}")
         print("------------------------------------------------------------")
         print(f"Temperatura: {dados_missao[i][0]} °C | {analisar_temperatura(dados_missao[i][0])}")
@@ -34,7 +34,6 @@ def percorrer_ciclo_missao():
         print(f"Classificação do ciclo: {classificar_ciclo(soma_risco)}")
         print(f"Recomendação: {gerar_recomendacao_ciclo(i)}")
         print()
-    exibir_relatorio_final()
 
 def exibir_relatorio_final():
     print("============================================================")
@@ -46,6 +45,29 @@ def exibir_relatorio_final():
     print(f"Quantidade de Ciclos Analisados: {len(dados_missao)}")
     print()
     exibir_media_informacoes()
+    print()
+    exibir_estatisticas_ciclos()
+    print()
+    print("Tendência da missão:")
+    print("<tendencia_missao>")
+    print()
+    print("Pontuação acumuldada por área: ")
+    print("")
+    print()
+    print("Área mais afetada:")
+    print("")
+    print()
+    print("Classificação final da missão:")
+    print("<classificao_final_missao>")
+    print()
+    print("Conclusão:")
+    print("<análise_final>")
+    
+def exibir_estatisticas_ciclos():
+    print(f"Ciclo mais crítico: Ciclo {exibir_ciclo_critico()}")
+    print(f"Maior pontuação de risco: {exibir_maior_pontuacao_risco()}")
+    print(f"Risco médio da missão: {exibir_media_risco_missao():.2f}")
+    print(f"Quantidade de ciclos críticos: {exibir_quantidade_ciclo_critico()}")
     
 def exibir_media_informacoes():
     print(f"Média de temperatura: {exibir_media_temperatura():.2f} °C")
@@ -82,7 +104,36 @@ def atualizar_lista_risco(i):
     lista_risco[3] = somar_risco_oxigenio(dados_missao[i][3])
     lista_risco[4] = somar_risco_estabilidade(dados_missao[i][4])
 
-def somar_risco_ciclo(soma_risco):
+def exibir_ciclo_critico():
+    ciclo_critico = 0
+    maior_risco = lista_soma_risco_ciclo[0]
+    for i in range(1, len(lista_soma_risco_ciclo)):
+        if lista_soma_risco_ciclo[i] > maior_risco:
+            ciclo_critico = i
+    return ciclo_critico
+
+def exibir_quantidade_ciclo_critico():
+    ciclos_criticos = 0
+    for risco in lista_soma_risco_ciclo:
+        if risco > 5:
+            ciclos_criticos += 1
+    return ciclos_criticos
+
+def exibir_maior_pontuacao_risco():
+    maior_risco = lista_soma_risco_ciclo[0]
+    for risco in lista_soma_risco_ciclo:
+        if risco > maior_risco:
+            maior_risco = risco
+    return maior_risco
+
+def exibir_media_risco_missao():
+    soma_risco = 0
+    for risco in lista_soma_risco_ciclo:
+        soma_risco += risco
+    return soma_risco / len(lista_soma_risco_ciclo)        
+
+def somar_risco_ciclo():
+    soma_risco = 0
     for risco in lista_risco:
         soma_risco += risco
     return soma_risco
@@ -223,3 +274,4 @@ areas_monitoradas = [
 
 exibir_introducao_missao()
 percorrer_ciclo_missao()
+exibir_relatorio_final()
