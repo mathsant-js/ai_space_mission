@@ -12,16 +12,18 @@ def percorrer_ciclo_missao():
     risco_comunicacao = 0
     risco_bateria = 0
     risco_oxigenio = 0
+    risco_estabilidade = 0
     for i in range(len(dados_missao)):
         risco_temperatura += analisar_temperatura(dados_missao[i][0])
         risco_comunicacao += analisar_comunicacao(dados_missao[i][1])
         risco_bateria += analisar_bateria(dados_missao[i][2])
         risco_oxigenio += analisar_oxigenio(dados_missao[i][3])
+        risco_estabilidade += analisar_estabilidade(dados_missao[i][4])
         print(f"Temperatura: {dados_missao[i][0]} °C | {calcular_pontuacao_risco(risco_temperatura)}")
         print(f"Comunicação: {dados_missao[i][1]}% | {calcular_pontuacao_risco(risco_comunicacao)}")
         print(f"Bateria: {dados_missao[i][2]}% | {calcular_pontuacao_risco(risco_bateria)}")
         print(f"Oxigênio: {dados_missao[i][3]}% | {calcular_pontuacao_risco(risco_oxigenio)}")
-        print(f"Estabilidade: {dados_missao[i][4]}%")
+        print(f"Estabilidade: {dados_missao[i][4]}% | {calcular_pontuacao_risco(risco_estabilidade)}")
         print()
 
 def calcular_pontuacao_risco(pontuacao):
@@ -66,6 +68,15 @@ def analisar_oxigenio(oxigenio):
         case _ if oxigenio < 80:
             risco += 2
         case _ if oxigenio <= 89:
+            risco += 1
+    return risco
+
+def analisar_estabilidade(estabilidade):
+    risco = 0
+    match estabilidade:
+        case _ if estabilidade < 40:
+            risco += 2
+        case _ if estabilidade <= 69:
             risco += 1
     return risco
 
