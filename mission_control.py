@@ -13,6 +13,7 @@ def exibir_introducao_missao():
     print("Missão: Moon Test Ômega")
     print("Equipe: Equipe Alpha")
     print(f"Quantidade de Ciclos Analisados: {len(dados_missao)}")
+    print("============================================================")
     print()
 
 def percorrer_ciclo_missao():
@@ -57,47 +58,47 @@ def classificar_ciclo(soma_risco):
 def analisar_temperatura(temperatura):
     match temperatura:
         case _ if temperatura < 18 or temperatura > 30 and temperatura <= 35:
-            return "ATENÇÃO"
+            return "ATENÇÃO | Temperatura elevada"
         case _ if temperatura > 35:
-            return "CRÍTICO"
+            return "CRÍTICO | Risco de superaquecimento"
         case _:
-            return "NORMAL"
+            return "NORMAL | Temperatura estável"
 
 def analisar_comunicacao(comunicacao):
     match comunicacao:
         case _ if comunicacao < 30:
-            return "CRÍTICO"
+            return "CRÍTICO | Comunicação com a base em nível crítico"
         case _ if comunicacao <= 59:
-            return "ATENÇÃO"
+            return "ATENÇÃO | Comunicação instável"
         case _:
-            return "NORMAL"
+            return "NORMAL | Comunicação estável"
         
 def analisar_bateria(bateria):
     match bateria:
         case _ if bateria < 20:
-            return "CRÍTICO"
+            return "CRÍTICO | Bateria em nível crítico"
         case _ if bateria <= 49:
-            return "ATENÇÃO"
+            return "ATENÇÃO | Bateria abaixo do recomendável"
         case _:
-            return "NORMAL"
+            return "NORMAL | Energia estável"
         
 def analisar_oxigenio(oxigenio):
     match oxigenio:
         case _ if oxigenio < 80:
-            return "CRÍTICO"
+            return "CRÍTICO | Oxigênio em nível crítico"
         case _ if oxigenio <= 89:
-            return "ATENÇÃO"
+            return "ATENÇÃO | Oxigênio abaixo do ideal"
         case _:
-            return "NORMAL"
+            return "NORMAL | Oxigênio adequado"
         
 def analisar_estabilidade(estabilidade):
     match estabilidade:
         case _ if estabilidade < 40:
-            return "CRÍTICO"
+            return "CRÍTICO | Estabilidade operacional crítica"
         case _ if estabilidade <= 69:
-            return "ATENÇÃO"
+            return "ATENÇÃO | Estabilidade operacional reduzida"
         case _:
-            return "NORMAL"
+            return "NORMAL | Estabilidade operacional adequada"
 
 def somar_risco_temperatura(temperatura):
     risco = 0
