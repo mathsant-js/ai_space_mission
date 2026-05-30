@@ -4,9 +4,9 @@ risco_bateria = 0
 risco_oxigenio = 0
 risco_estabilidade = 0
 
-lista_risco = [risco_temperatura, risco_comunicacao, risco_bateria, risco_oxigenio, risco_estabilidade]
 lista_soma_risco_ciclo = []
 lista_soma_pontuacao = [0, 0, 0, 0, 0]
+lista_risco = [risco_temperatura, risco_comunicacao, risco_bateria, risco_oxigenio, risco_estabilidade]
 
 def exibir_introducao_missao():
     print("============================================================")
@@ -84,53 +84,12 @@ def exibir_tendencia():
 def exibir_classificacao_final_missao():
     print(calcular_classificacao_final_missao())
 
-def analisar_tendencia():
-    risco_primeiro_ciclo = lista_soma_risco_ciclo[0]
-    risco_ultimo_ciclo = lista_soma_risco_ciclo[len(lista_soma_risco_ciclo) - 1]
-    if risco_ultimo_ciclo > risco_primeiro_ciclo:
-        return "A missão apresentou tendência de piora."
-    elif risco_primeiro_ciclo > risco_ultimo_ciclo:
-        return "A missão apresentou tendência de melhora."
-    else:
-        return "A missão permaneceu estável em relação ao início."
-
-def calcular_classificacao_final_missao():
-    soma_risco_ultimo_ciclo = somar_risco_ciclo()
-    if soma_risco_ultimo_ciclo < 3:
-        return "MISSÃO ESTÁVEL"
-    elif soma_risco_ultimo_ciclo < 6:
-        return "MISSÃO EM ATENÇÃO"
-    else:
-        return "MISSÃO CRÍTICA"
-
-def calcular_acumulo_pontuacao(i):
-    lista_soma_pontuacao[0] += somar_risco_temperatura(dados_missao[i][0])
-    lista_soma_pontuacao[1] += somar_risco_comunicacao(dados_missao[i][1])
-    lista_soma_pontuacao[2] += somar_risco_bateria(dados_missao[i][2])
-    lista_soma_pontuacao[3] += somar_risco_oxigenio(dados_missao[i][3])
-    lista_soma_pontuacao[4] += somar_risco_estabilidade(dados_missao[i][4])
-
-def calcular_area_mais_afetada():
-    mais_afetada = lista_soma_pontuacao[0]
-    area_mais_afetada = areas_monitoradas[0]
-    for ls, area in zip(lista_soma_pontuacao, areas_monitoradas):
-        if ls > mais_afetada:
-            mais_afetada = ls
-            area_mais_afetada = area
-    return area_mais_afetada
-
 def exibir_area_mais_afetada():
     print(calcular_area_mais_afetada())
     
 def exibir_pontuacao_acumulada():
     for ls, area in zip(lista_soma_pontuacao, areas_monitoradas):
         print(f"{area}: {ls} pontos")
-
-def calcular_media_informacao(coluna):
-    soma = 0
-    for i in range(len(dados_missao)):
-        soma += dados_missao[i][coluna]
-    return soma / len(dados_missao)
 
 def exibir_media_temperatura():
     return calcular_media_informacao(0)
@@ -153,6 +112,53 @@ def atualizar_lista_risco(i):
     lista_risco[2] = somar_risco_bateria(dados_missao[i][2])
     lista_risco[3] = somar_risco_oxigenio(dados_missao[i][3])
     lista_risco[4] = somar_risco_estabilidade(dados_missao[i][4])
+
+def calcular_acumulo_pontuacao(i):
+    lista_soma_pontuacao[0] += somar_risco_temperatura(dados_missao[i][0])
+    lista_soma_pontuacao[1] += somar_risco_comunicacao(dados_missao[i][1])
+    lista_soma_pontuacao[2] += somar_risco_bateria(dados_missao[i][2])
+    lista_soma_pontuacao[3] += somar_risco_oxigenio(dados_missao[i][3])
+    lista_soma_pontuacao[4] += somar_risco_estabilidade(dados_missao[i][4])
+
+def somar_risco_ciclo():
+    soma_risco = 0
+    for risco in lista_risco:
+        soma_risco += risco
+    return soma_risco
+
+def analisar_tendencia():
+    risco_primeiro_ciclo = lista_soma_risco_ciclo[0]
+    risco_ultimo_ciclo = lista_soma_risco_ciclo[len(lista_soma_risco_ciclo) - 1]
+    if risco_ultimo_ciclo > risco_primeiro_ciclo:
+        return "A missão apresentou tendência de piora."
+    elif risco_primeiro_ciclo > risco_ultimo_ciclo:
+        return "A missão apresentou tendência de melhora."
+    else:
+        return "A missão permaneceu estável em relação ao início."
+
+def calcular_classificacao_final_missao():
+    soma_risco_ultimo_ciclo = somar_risco_ciclo()
+    if soma_risco_ultimo_ciclo < 3:
+        return "MISSÃO ESTÁVEL"
+    elif soma_risco_ultimo_ciclo < 6:
+        return "MISSÃO EM ATENÇÃO"
+    else:
+        return "MISSÃO CRÍTICA"
+
+def calcular_area_mais_afetada():
+    mais_afetada = lista_soma_pontuacao[0]
+    area_mais_afetada = areas_monitoradas[0]
+    for ls, area in zip(lista_soma_pontuacao, areas_monitoradas):
+        if ls > mais_afetada:
+            mais_afetada = ls
+            area_mais_afetada = area
+    return area_mais_afetada
+
+def calcular_media_informacao(coluna):
+    soma = 0
+    for i in range(len(dados_missao)):
+        soma += dados_missao[i][coluna]
+    return soma / len(dados_missao)
 
 def exibir_ciclo_critico():
     ciclo_critico = 0
@@ -181,12 +187,6 @@ def exibir_media_risco_missao():
     for risco in lista_soma_risco_ciclo:
         soma_risco += risco
     return soma_risco / len(lista_soma_risco_ciclo)        
-
-def somar_risco_ciclo():
-    soma_risco = 0
-    for risco in lista_risco:
-        soma_risco += risco
-    return soma_risco
 
 def classificar_ciclo(soma_risco):   
     match soma_risco:
