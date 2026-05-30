@@ -165,8 +165,9 @@ def exibir_ciclo_critico():
     maior_risco = lista_soma_risco_ciclo[0]
     for i in range(1, len(lista_soma_risco_ciclo)):
         if lista_soma_risco_ciclo[i] > maior_risco:
+            maior_risco = lista_soma_risco_ciclo[i]
             ciclo_critico = i
-    return ciclo_critico
+    return ciclo_critico + 1
 
 def exibir_quantidade_ciclo_critico():
     ciclos_criticos = 0
