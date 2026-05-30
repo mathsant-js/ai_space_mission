@@ -1,3 +1,9 @@
+TEMPERATURA = 0
+COMUNICACAO = 1
+BATERIA = 2
+OXIGENIO = 3
+ESTABILIDADE = 4
+
 risco_temperatura = 0
 risco_comunicacao = 0
 risco_bateria = 0
@@ -26,11 +32,11 @@ def percorrer_ciclo_missao():
         lista_soma_risco_ciclo.append(soma_risco)
         print(f"CICLO {i + 1}")
         print("------------------------------------------------------------")
-        print(f"Temperatura: {dados_missao[i][0]} °C | {analisar_temperatura(dados_missao[i][0])}")
-        print(f"Comunicação: {dados_missao[i][1]}% | {analisar_comunicacao(dados_missao[i][1])}")
-        print(f"Bateria: {dados_missao[i][2]}% | {analisar_bateria(dados_missao[i][2])}")
-        print(f"Oxigênio: {dados_missao[i][3]}% | {analisar_oxigenio(dados_missao[i][3])}")
-        print(f"Estabilidade: {dados_missao[i][4]}% | {analisar_estabilidade(dados_missao[i][4])}")
+        print(f"Temperatura: {dados_missao[i][TEMPERATURA]} °C | {analisar_temperatura(dados_missao[i][TEMPERATURA])}")
+        print(f"Comunicação: {dados_missao[i][COMUNICACAO]}% | {analisar_comunicacao(dados_missao[i][COMUNICACAO])}")
+        print(f"Bateria: {dados_missao[i][BATERIA]}% | {analisar_bateria(dados_missao[i][BATERIA])}")
+        print(f"Oxigênio: {dados_missao[i][OXIGENIO]}% | {analisar_oxigenio(dados_missao[i][OXIGENIO])}")
+        print(f"Estabilidade: {dados_missao[i][ESTABILIDADE]}% | {analisar_estabilidade(dados_missao[i][ESTABILIDADE])}")
         print()
         print(f"Pontuação de risco do ciclo: {soma_risco}")
         print(f"Classificação do ciclo: {classificar_ciclo(soma_risco)}")
@@ -107,18 +113,18 @@ def exibir_media_estabilidade():
     return calcular_media_informacao(4)
 
 def atualizar_lista_risco(i):
-    lista_risco[0] = somar_risco_temperatura(dados_missao[i][0])
-    lista_risco[1] = somar_risco_comunicacao(dados_missao[i][1])
-    lista_risco[2] = somar_risco_bateria(dados_missao[i][2])
-    lista_risco[3] = somar_risco_oxigenio(dados_missao[i][3])
-    lista_risco[4] = somar_risco_estabilidade(dados_missao[i][4])
+    lista_risco[TEMPERATURA] = somar_risco_temperatura(dados_missao[i][TEMPERATURA])
+    lista_risco[COMUNICACAO] = somar_risco_comunicacao(dados_missao[i][COMUNICACAO])
+    lista_risco[BATERIA] = somar_risco_bateria(dados_missao[i][BATERIA])
+    lista_risco[OXIGENIO] = somar_risco_oxigenio(dados_missao[i][OXIGENIO])
+    lista_risco[ESTABILIDADE] = somar_risco_estabilidade(dados_missao[i][ESTABILIDADE])
 
 def calcular_acumulo_pontuacao(i):
-    lista_soma_pontuacao[0] += somar_risco_temperatura(dados_missao[i][0])
-    lista_soma_pontuacao[1] += somar_risco_comunicacao(dados_missao[i][1])
-    lista_soma_pontuacao[2] += somar_risco_bateria(dados_missao[i][2])
-    lista_soma_pontuacao[3] += somar_risco_oxigenio(dados_missao[i][3])
-    lista_soma_pontuacao[4] += somar_risco_estabilidade(dados_missao[i][4])
+    lista_soma_pontuacao[TEMPERATURA] += somar_risco_temperatura(dados_missao[i][TEMPERATURA])
+    lista_soma_pontuacao[COMUNICACAO] += somar_risco_comunicacao(dados_missao[i][COMUNICACAO])
+    lista_soma_pontuacao[BATERIA] += somar_risco_bateria(dados_missao[i][BATERIA])
+    lista_soma_pontuacao[OXIGENIO] += somar_risco_oxigenio(dados_missao[i][OXIGENIO])
+    lista_soma_pontuacao[ESTABILIDADE] += somar_risco_estabilidade(dados_missao[i][ESTABILIDADE])
 
 def somar_risco_ciclo():
     soma_risco = 0
@@ -199,20 +205,20 @@ def classificar_ciclo(soma_risco):
             return "MISSÃO CRÍTICA"
     
 def possui_risco(i):
-    return somar_risco_temperatura(dados_missao[i][0]) or somar_risco_comunicacao(dados_missao[i][1]) or somar_risco_bateria(dados_missao[i][2]) or somar_risco_oxigenio(dados_missao[i][3]) or somar_risco_estabilidade(dados_missao[i][4])        
+    return somar_risco_temperatura(dados_missao[i][TEMPERATURA]) or somar_risco_comunicacao(dados_missao[i][COMUNICACAO]) or somar_risco_bateria(dados_missao[i][BATERIA]) or somar_risco_oxigenio(dados_missao[i][OXIGENIO]) or somar_risco_estabilidade(dados_missao[i][ESTABILIDADE])
         
 def gerar_recomendacao_ciclo(i):
     recomendacao = ""
     if possui_risco(i):
-        if somar_risco_temperatura(dados_missao[i][0]) > 0:
+        if somar_risco_temperatura(dados_missao[i][TEMPERATURA]) > 0:
             recomendacao += "Verificar controle térmico da missão. "
-        if somar_risco_comunicacao(dados_missao[i][1]) > 0:
+        if somar_risco_comunicacao(dados_missao[i][COMUNICACAO]) > 0:
             recomendacao += "Tentar reestabelecer contato com a base. "
-        if somar_risco_bateria(dados_missao[i][2]) > 0:
+        if somar_risco_bateria(dados_missao[i][BATERIA]) > 0:
             recomendacao += "Ativar modo de economia de energia. "
-        if somar_risco_oxigenio(dados_missao[i][3]) > 0:
+        if somar_risco_oxigenio(dados_missao[i][OXIGENIO]) > 0:
             recomendacao += "Acionar protocolo de suporte à vida. "
-        if somar_risco_estabilidade(dados_missao[i][4]) > 0:
+        if somar_risco_estabilidade(dados_missao[i][ESTABILIDADE]) > 0:
             recomendacao += "Reduzir operações não essenciais. "
     else:
         recomendacao = "Manter operação normal e continuar monitoramento."
