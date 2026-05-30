@@ -51,7 +51,7 @@ def exibir_relatorio_final():
     exibir_estatisticas_ciclos()
     print()
     print("Tendência da missão:")
-    print("<tendencia_missao>")
+    exibir_tendencia()
     print()
     print("Pontuação acumuldada por área: ")
     exibir_pontuacao_acumulada()
@@ -60,7 +60,7 @@ def exibir_relatorio_final():
     exibir_area_mais_afetada()
     print()
     print("Classificação final da missão:")
-    print("<classificao_final_missao>")
+    exibir_classificacao_final_missao()
     print()
     print("Conclusão:")
     print("<análise_final>")
@@ -77,6 +77,31 @@ def exibir_media_informacoes():
     print(f"Média de bateria: {exibir_media_bateria():.2f} %")
     print(f"Média de oxigênio: {exibir_media_oxigenio():.2f} %")
     print(f"Média de estabilidade: {exibir_media_estabilidade():.2f} %")
+
+def exibir_tendencia():
+    print(analisar_tendencia())
+
+def exibir_classificacao_final_missao():
+    print(calcular_classificacao_final_missao())
+
+def analisar_tendencia():
+    risco_primeiro_ciclo = lista_soma_risco_ciclo[0]
+    risco_ultimo_ciclo = lista_soma_risco_ciclo[len(lista_soma_risco_ciclo) - 1]
+    if risco_ultimo_ciclo > risco_primeiro_ciclo:
+        return "A missão apresentou tendência de piora."
+    elif risco_primeiro_ciclo > risco_ultimo_ciclo:
+        return "A missão apresentou tendência de melhora."
+    else:
+        return "A missão permaneceu estável em relação ao início."
+
+def calcular_classificacao_final_missao():
+    soma_risco_ultimo_ciclo = somar_risco_ciclo()
+    if soma_risco_ultimo_ciclo < 3:
+        return "MISSÃO ESTÁVEL"
+    elif soma_risco_ultimo_ciclo < 6:
+        return "MISSÃO EM ATENÇÃO"
+    else:
+        return "MISSÃO CRÍTICA"
 
 def calcular_acumulo_pontuacao(i):
     lista_soma_pontuacao[0] += somar_risco_temperatura(dados_missao[i][0])
