@@ -213,47 +213,77 @@ def gerar_recomendacao_ciclo(i):
         recomendacao = "Manter operação normal e continuar monitoramento."
     return recomendacao
 
+def eh_temperatura_elevada(temperatura):
+    return temperatura < 18 or temperatura > 30 and temperatura <= 35
+
+def eh_temperatura_critica(temperatura):
+    return temperatura > 35
+
+def eh_comunicacao_critica(comunicacao):
+    return comunicacao < 30
+
+def eh_comunicacao_instavel(comunicacao):
+    return comunicacao <= 59
+
+def eh_bateria_critica(bateria):
+    return bateria < 20
+
+def eh_bateria_abaixo_recomendavel(bateria):
+    return bateria <= 49
+
+def eh_oxigenio_critico(oxigenio):
+    return oxigenio < 80
+
+def eh_oxigenio_abaixo_recomendavel(oxigenio):
+    return oxigenio <= 89
+
+def eh_estabilidade_critica(estabilidade):
+    return estabilidade < 40
+
+def eh_estabilidade_reduzida(estabilidade):
+    return estabilidade <= 69
+
 def analisar_temperatura(temperatura):
     match temperatura:
-        case _ if temperatura < 18 or temperatura > 30 and temperatura <= 35:
+        case _ if eh_temperatura_elevada(temperatura):
             return "ATENÇÃO | Temperatura elevada"
-        case _ if temperatura > 35:
+        case _ if eh_temperatura_critica(temperatura):
             return "CRÍTICO | Risco de superaquecimento"
         case _:
             return "NORMAL | Temperatura estável"
 
 def analisar_comunicacao(comunicacao):
     match comunicacao:
-        case _ if comunicacao < 30:
+        case _ if eh_comunicacao_critica(comunicacao):
             return "CRÍTICO | Comunicação com a base em nível crítico"
-        case _ if comunicacao <= 59:
+        case _ if eh_comunicacao_instavel(comunicacao):
             return "ATENÇÃO | Comunicação instável"
         case _:
             return "NORMAL | Comunicação estável"
         
 def analisar_bateria(bateria):
     match bateria:
-        case _ if bateria < 20:
+        case _ if eh_bateria_critica(bateria):
             return "CRÍTICO | Bateria em nível crítico"
-        case _ if bateria <= 49:
+        case _ if eh_bateria_abaixo_recomendavel(bateria):
             return "ATENÇÃO | Bateria abaixo do recomendável"
         case _:
             return "NORMAL | Energia estável"
         
 def analisar_oxigenio(oxigenio):
     match oxigenio:
-        case _ if oxigenio < 80:
+        case _ if eh_oxigenio_critico(oxigenio):
             return "CRÍTICO | Oxigênio em nível crítico"
-        case _ if oxigenio <= 89:
+        case _ if eh_oxigenio_abaixo_recomendavel(oxigenio):
             return "ATENÇÃO | Oxigênio abaixo do ideal"
         case _:
             return "NORMAL | Oxigênio adequado"
         
 def analisar_estabilidade(estabilidade):
     match estabilidade:
-        case _ if estabilidade < 40:
+        case _ if eh_estabilidade_critica(estabilidade):
             return "CRÍTICO | Estabilidade operacional crítica"
-        case _ if estabilidade <= 69:
+        case _ if eh_estabilidade_reduzida(estabilidade):
             return "ATENÇÃO | Estabilidade operacional reduzida"
         case _:
             return "NORMAL | Estabilidade operacional adequada"
@@ -261,9 +291,9 @@ def analisar_estabilidade(estabilidade):
 def somar_risco_temperatura(temperatura):
     risco = 0
     match temperatura:
-        case _ if temperatura < 18 or temperatura > 30 and temperatura <= 35:
+        case _ if eh_temperatura_elevada(temperatura):
             risco += 1
-        case _ if temperatura > 35:
+        case _ if eh_temperatura_critica(temperatura):
             risco += 2
         case _:
             risco += 0
@@ -272,36 +302,36 @@ def somar_risco_temperatura(temperatura):
 def somar_risco_comunicacao(comunicacao):
     risco = 0
     match comunicacao:
-        case _ if comunicacao < 30:
+        case _ if eh_comunicacao_critica(comunicacao):
             risco += 2
-        case _ if comunicacao <= 59:
+        case _ if eh_comunicacao_instavel(comunicacao):
             risco += 1
     return risco
 
 def somar_risco_bateria(bateria):
     risco = 0
     match bateria:
-        case _ if bateria < 20:
+        case _ if eh_bateria_critica(bateria):
             risco += 2
-        case _ if bateria <= 49:
+        case _ if eh_bateria_abaixo_recomendavel(bateria):
             risco += 1
     return risco
 
 def somar_risco_oxigenio(oxigenio):
     risco = 0
     match oxigenio:
-        case _ if oxigenio < 80:
+        case _ if eh_oxigenio_critico(oxigenio):
             risco += 2
-        case _ if oxigenio <= 89:
+        case _ if eh_oxigenio_abaixo_recomendavel(oxigenio):
             risco += 1
     return risco
 
 def somar_risco_estabilidade(estabilidade):
     risco = 0
     match estabilidade:
-        case _ if estabilidade < 40:
+        case _ if eh_estabilidade_critica(estabilidade):
             risco += 2
-        case _ if estabilidade <= 69:
+        case _ if eh_estabilidade_reduzida(estabilidade):
             risco += 1
     return risco
 
