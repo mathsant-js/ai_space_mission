@@ -63,7 +63,7 @@ def exibir_relatorio_final():
     exibir_classificacao_final_missao()
     print()
     print("Conclusão:")
-    print("<análise_final>")
+    print("A missão apresentou instabilidade relevante durante a operação. Apesar da tentativa de recuperação no último ciclo, ainda existem sistemas em atenção e a equipe deve manter o plano de contingência ativo.")
     
 def exibir_estatisticas_ciclos():
     print(f"Ciclo mais crítico: Ciclo {exibir_ciclo_critico()}")
