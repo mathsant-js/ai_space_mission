@@ -98,19 +98,19 @@ def exibir_pontuacao_acumulada():
         print(f"{area}: {ls} pontos")
 
 def exibir_media_temperatura():
-    return calcular_media_informacao(0)
+    return calcular_media_informacao(TEMPERATURA)
 
 def exibir_media_comunicacao():
-    return calcular_media_informacao(1)
+    return calcular_media_informacao(COMUNICACAO)
 
 def exibir_media_bateria():
-    return calcular_media_informacao(2)
+    return calcular_media_informacao(BATERIA)
 
 def exibir_media_oxigenio():
-    return calcular_media_informacao(3)
+    return calcular_media_informacao(OXIGENIO)
 
 def exibir_media_estabilidade():
-    return calcular_media_informacao(4)
+    return calcular_media_informacao(ESTABILIDADE)
 
 def atualizar_lista_risco(i):
     lista_risco[TEMPERATURA] = somar_risco_temperatura(dados_missao[i][TEMPERATURA])
